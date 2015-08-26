@@ -11,15 +11,27 @@ public class Tetris extends PApplet
 	@Override
 	public void setup()
 	{
-		this.size(800, 600);
-		this.frameRate(30);	
+		this.size(this.displayWidth, this.displayHeight);
+		this.frameRate(60);	
 		this.board = new Board(this);
 	}
 	
 	@Override
 	public void draw()
-	{
+	{	
 		this.background(0);
 		this.board.draw(this);
+	}
+	
+	@Override
+	public void mousePressed()
+	{
+		this.board.update(this);
+	}
+	
+	@Override
+	public void mouseDragged()
+	{
+		this.board.update(this);
 	}
 }
