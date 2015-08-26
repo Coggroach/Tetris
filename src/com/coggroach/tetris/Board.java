@@ -1,71 +1,71 @@
 package com.coggroach.tetris;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.coggroach.tetris.blocks.Block;
+import com.coggroach.tetris.blocks.Blocks;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Board implements IDrawable
 {
-	private static int WIDTH = 10;
-	private static int HEIGHT = 18;
-
-	private Colour[] board;
-	private int length;
-	private PVector pos;
-
+	private List<IDrawable> blocks;
+	private IDrawable block;
+	
 	public Board(PApplet g)
 	{
-		this.board = new Colour[WIDTH * HEIGHT];
-		this.init(g);
-	}
-
-	private void init(PApplet g)
-	{
-		this.length = 50;
-		this.pos = new PVector();
-		for (int i = 0; i < this.board.length; i++)
-		{
-			this.board[i] = Colour.white;
-		}
+		this.blocks = new ArrayList<IDrawable>();
+		this.block = null;
 	}
 
 	@Override
 	public void draw(PApplet g)
 	{
-		PVector pos = new PVector(this.pos.x, this.pos.y);
-		for (int i = 0; i < HEIGHT; i++)
-		{
-			for (int j = 0; j < WIDTH; j++)
-			{
-				g.stroke(0);
-				Colour c = this.board[j + i * WIDTH];
-				g.fill(c.R, c.G, c.B, c.A);
-				g.rect(pos.x, pos.y, this.length, this.length);
-				pos.x += this.length;
-			}
-			pos.x = 0;
-			pos.y += this.length;
-		}
+		Colour.stroke(g, Colour.black);
+		Colour.fill(g, Colour.white);
+				
+		g.rect(0, 0, Constants.BOARD_PIXEL_WIDTH, Constants.BOARD_PIXEL_HEIGHT);
+		for(IDrawable d : blocks)
+			d.draw(g);
+		if(this.block != null)
+			this.block.draw(g);
 	}
 
 	@Override
 	public void update(PApplet g)
 	{
-		PVector pos = new PVector(this.pos.x, this.pos.y);
-		for (int i = 0; i < HEIGHT; i++)
+		// TODO Auto-generated method stub		
+	}
+	
+	public void moveLeft()
+	{
+		if(this.block != null)
+			((Block) block).moveLeft();
+	}
+	
+	public void moveRight()
+	{
+		if(this.block != null)
+			((Block) block).moveRight();
+	}
+
+	@Override
+	public void update()
+	{
+		if(this.block == null)
+			this.block = new Block(new PVector(Constants.BOARD_PIXEL_WIDTH/2, 0), Direction.NORTH, Blocks.getRandomBlockType());
+		
+		if(this.block != null)
+			this.block.update();
+		
+		if(((Block) this.block).hasCollided())
 		{
-			for (int j = 0; j < WIDTH; j++)
-			{
-
-				if (g.mouseX >= pos.x && g.mouseX < pos.x + this.length
-						&& g.mouseY >= pos.y && g.mouseY < pos.y + this.length)
-					this.board[j + i * WIDTH] =
-							g.mouseButton == PApplet.LEFT ? Colour.green
-									: Colour.white;
-
-				pos.x += this.length;
-			}
-			pos.x = 0;
-			pos.y += this.length;
+			this.blocks.add(block);
+			this.block = null;
 		}
 	}
+
+
 }
