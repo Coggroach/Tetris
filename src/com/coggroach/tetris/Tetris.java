@@ -13,7 +13,7 @@ public class Tetris extends PApplet
 	@Override
 	public void setup()
 	{
-		this.size(800, 600);
+		this.size(Constants.BOARD_PIXEL_WIDTH, Constants.BOARD_PIXEL_HEIGHT);
 		this.frameRate(60);
 		this.board = new Board(this);
 		this.counter = 0;
@@ -45,9 +45,13 @@ public class Tetris extends PApplet
 	public void keyPressed()
 	{
 		if(this.keyCode == PConstants.LEFT)
-			((Board) this.board).moveLeft();
+			((Board) this.board).left();
 		if(this.keyCode == PConstants.RIGHT)
-			((Board) this.board).moveRight();
+			((Board) this.board).right();
+		if(this.keyCode == PConstants.DOWN)
+			((Board) this.board).down();
+		if(this.keyCode == PConstants.UP)
+			((Board) this.board).rotate();
 	}
 	
 	private boolean canUpdate()

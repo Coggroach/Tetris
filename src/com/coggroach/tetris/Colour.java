@@ -14,6 +14,14 @@ public class Colour
 		this.A = a;
 	}
 	
+	public Colour(Colour c)
+	{
+		this.R = c.R;
+		this.G = c.G;
+		this.B = c.B;
+		this.A = c.A;
+	}
+	
 	public static Colour white = new Colour(255, 255, 255, 255);
 	
 	public static Colour green = new Colour(174, 255, 162, 255);

@@ -14,6 +14,17 @@ public class BlockType
 		this.colour = c;
 		this.offsets = o;
 	}
+	
+	public BlockType(BlockType bt)
+	{
+		this.colour = new Colour(bt.getColour());
+		PVector[] offsets = bt.getOffsets();
+		this.offsets = new PVector[offsets.length];
+		for(int i = 0; i < offsets.length; i++)
+		{
+			this.offsets[i] = new PVector(offsets[i].x, offsets[i].y);
+		}
+	}
 
 	public Colour getColour()
 	{
@@ -23,5 +34,13 @@ public class BlockType
 	public PVector[] getOffsets()
 	{
 		return offsets;
-	}	
+	}
+	
+	public void rotate()
+	{
+		for(PVector pos : this.offsets)
+		{
+			pos.rotate((float) (Math.PI/2));
+		}
+	}
 }

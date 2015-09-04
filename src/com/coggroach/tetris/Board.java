@@ -9,7 +9,7 @@ import com.coggroach.tetris.blocks.Blocks;
 import processing.core.PApplet;
 import processing.core.PVector;
 
-public class Board implements IDrawable
+public class Board implements IDrawable, IMovable
 {
 	private List<IDrawable> blocks;
 	private IDrawable block;
@@ -38,18 +38,6 @@ public class Board implements IDrawable
 	{
 		// TODO Auto-generated method stub		
 	}
-	
-	public void moveLeft()
-	{
-		if(this.block != null)
-			((Block) block).moveLeft();
-	}
-	
-	public void moveRight()
-	{
-		if(this.block != null)
-			((Block) block).moveRight();
-	}
 
 	@Override
 	public void update()
@@ -67,5 +55,43 @@ public class Board implements IDrawable
 		}
 	}
 
+	@Override
+	public void right()
+	{
+		if(this.block != null)
+			((IMovable) this.block).right();		
+	}
 
+	@Override
+	public void left()
+	{
+		if(this.block != null)
+			((IMovable) this.block).left();
+	}
+
+	@Override
+	public void rotate()
+	{
+		if(this.block != null)
+			((IMovable) this.block).rotate();
+	}
+
+	@Override
+	public void down()
+	{
+		if(this.block != null)
+			((IMovable) this.block).down();
+	}
+
+	@Override
+	public void up()
+	{
+		
+	}
+
+	@Override
+	public boolean contains(PVector point)
+	{
+		return true;
+	}
 }

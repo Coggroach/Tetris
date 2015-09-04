@@ -50,19 +50,19 @@ public class Blocks
 		switch(i)
 		{
 			case 0:
-				return iBlock;
+				return new BlockType(iBlock);
 			case 1:
-				return jBlock;
+				return new BlockType(jBlock);
 			case 2:
-				return lBlock;
+				return new BlockType(lBlock);
 			case 3:
-				return oBlock;
+				return new BlockType(oBlock);
 			case 4:
-				return sBlock;
+				return new BlockType(sBlock);
 			case 5:
-				return tBlock;
+				return new BlockType(tBlock);
 			case 6:
-				return zBlock;			
+				return new BlockType(zBlock);			
 		}
 		return null;
 	}
